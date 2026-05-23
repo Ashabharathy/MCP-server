@@ -1,0 +1,16 @@
+Rating,Title,Review,Date,App Version,Territory
+5,Great mutual fund app,"I love how easy it is to invest in mutual funds through GROWW. The SIP setup is seamless.",2025-01-05,5.2.1,IN
+4,Good but KYC is slow,"Overall good experience but KYC verification took 3 days. Would appreciate faster processing.",2025-01-08,5.2.1,IN
+2,Payment keeps failing,"Every time I try to make a payment, it fails at the last step. Very frustrating experience.",2025-01-12,5.2.1,IN
+1,Cannot withdraw funds,"I have been trying to withdraw my money for two weeks and the request is stuck in pending state.",2025-01-15,5.2.2,IN
+3,App crashes on statements,"The app crashes whenever I try to view my statement for the previous month.",2025-01-18,5.2.2,IN
+5,Very smooth onboarding,"Onboarding was very easy. Completed KYC within minutes and started investing the same day.",2025-01-20,5.2.2,IN
+4,Nice UI,"Clean interface and easy navigation. The portfolio view is especially useful.",2025-01-22,5.2.2,IN
+2,KYC rejected without reason,"My KYC was rejected but I received no explanation. Support took 5 days to respond.",2025-01-25,5.3.0,IN
+1,Money stuck for 10 days,"Requested a withdrawal 10 days ago. Money is still not in my bank. No update from support.",2025-01-28,5.3.0,IN
+3,Payment UPI issues,"UPI payments sometimes fail on the first attempt. Second attempt usually works but it is annoying.",2025-02-01,5.3.0,IN
+5,Best SIP app,"The SIP reminders and auto-invest feature are excellent. Makes investing effortless.",2025-02-03,5.3.0,IN
+4,Good returns,"Portfolio performance is good. Wish there were more filtering options for fund selection.",2025-02-05,5.3.1,IN
+2,Statement download broken,"The PDF statement download has not worked for the past two weeks. Button does nothing.",2025-02-08,5.3.1,IN
+1,Withdrawal delay again,"Another week and withdrawal still pending. This is unacceptable for a fintech app.",2025-02-10,5.3.1,IN
+3,Onboarding could be simpler,"Too many steps during onboarding. Had to re-upload documents twice due to unclear instructions.",2025-02-12,5.3.1,IN

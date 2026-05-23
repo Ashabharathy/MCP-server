@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+.pytest_cache/
+.coverage
+htmlcov/
+.git/
+
+# User configurations
+config/mcp-config.json
+
+# Outputs
+ingestion/output/
+logs/
+
+# Environments
+.env
+.venv
+venv/
+ENV/
+env.bak
+venv.bak

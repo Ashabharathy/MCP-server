@@ -1,0 +1,3 @@
+# theme-analysis-v1.txt
+# Phase 2 prompt template — Theme Analyzer
+# Implemented in Phase 2. See implementation-plan.md.

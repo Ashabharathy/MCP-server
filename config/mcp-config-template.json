@@ -1,0 +1,39 @@
+{
+  "_comment": "MCP Server configuration template. Copy this file, rename to mcp-config.json, and fill in real values. NEVER commit mcp-config.json to version control.",
+
+  "gdrive_mcp": {
+    "server": "@modelcontextprotocol/server-gdrive",
+    "transport": "stdio",
+    "credentials_file": "/path/to/gdrive-oauth-credentials.json",
+    "token_file": "/path/to/gdrive-token.json",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "tools": ["create_document", "update_document", "get_document_url"]
+  },
+
+  "gmail_mcp": {
+    "server": "gmail-mcp-server",
+    "transport": "stdio",
+    "credentials_file": "/path/to/gmail-oauth-credentials.json",
+    "token_file": "/path/to/gmail-token.json",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.compose",
+      "https://www.googleapis.com/auth/gmail.send"
+    ],
+    "default_mode": "draft",
+    "tools": ["draft_email", "send_email"]
+  },
+
+  "agent": {
+    "default_weeks": 8,
+    "max_themes": 5,
+    "max_pulse_words": 250,
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "llm_token_budget_per_run": 50000,
+    "retry_max_attempts": 3,
+    "log_dir": "logs/"
+  }
+}
