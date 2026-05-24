@@ -11,7 +11,9 @@ htmlcov/
 
 # User configurations
 config/mcp-config.json
-
+credentials.json
+gdrive-token.json
+gmail-token.json
 # Outputs
 ingestion/output/
 logs/
@@ -23,3 +25,9 @@ venv/
 ENV/
 env.bak
 venv.bak
+
+# OAuth credentials and tokens
+credentials.json
+gdrive-token.json
+gmail-token.json
+*.token.json
