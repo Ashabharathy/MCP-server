@@ -23,14 +23,14 @@ RUN mkdir -p logs ingestion/output config
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV PORT=3000
+ENV PORT=7860
 
-# Expose port for Vercel
-EXPOSE 3000
+# Expose port for Hugging Face
+EXPOSE 7860
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD python -c "import sys; sys.exit(0)" || exit 1
 
 # Run the MCP server
-CMD ["python", "start_mcp_server.py"]
+CMD ["python", "main.py"]

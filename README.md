@@ -1,3 +1,13 @@
+---
+title: GROWW Weekly Review Pulse Agent
+emoji: 📊
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+license: mit
+---
+
 # GROWW Weekly Review Pulse Agent
 
 An AI-powered agent that automatically analyzes app store reviews and generates a concise weekly pulse note for the GROWW Mutual Fund app.
