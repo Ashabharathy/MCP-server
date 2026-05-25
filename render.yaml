@@ -1,15 +1,16 @@
 services:
   - type: web
     name: mcp-server
-    env: python
+    env: docker
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python start_mcp_server.py
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHONUNBUFFERED
-        value: "1"
       - key: PORT
         value: "3000"
+      - key: MCP_SERVER_PORT
+        value: "3000"
+      - key: MCP_LOG_LEVEL
+        value: "INFO"
       - key: GOOGLE_CREDENTIALS_JSON
         sync: false
       - key: GDRIVE_TOKEN_JSON
@@ -20,17 +21,15 @@ services:
         sync: false
       - key: GROQ_API_KEY
         sync: false
+      - key: LLM_MODEL
+        value: "gpt-4o"
+      - key: LLM_TOKEN_BUDGET
+        value: "50000"
       - key: DEFAULT_WEEKS
         value: "8"
       - key: MAX_THEMES
         value: "5"
       - key: MAX_PULSE_WORDS
         value: "250"
-      - key: LLM_MODEL
-        value: "gpt-4o"
-      - key: LLM_TOKEN_BUDGET
-        value: "50000"
       - key: RETRY_MAX_ATTEMPTS
         value: "3"
-      - key: MCP_LOG_LEVEL
-        value: "INFO"

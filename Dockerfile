@@ -25,7 +25,7 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PORT=3000
 
-# Expose port for Koyeb
+# Expose port for Render
 EXPOSE 3000
 
 # Health check

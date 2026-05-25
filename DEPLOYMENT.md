@@ -1,16 +1,16 @@
-# Koyeb Deployment Plan — GROWW Weekly Review Pulse Agent
+# Render Deployment Plan — GROWW Weekly Review Pulse Agent
 
 ## Overview
 
-This document provides a complete deployment plan for deploying the GROWW Weekly Review Pulse Agent MCP server on Koyeb. The deployment includes Google Drive/Docs and Gmail MCP servers with OAuth 2.0 authentication, and supports both OpenAI and GROQ LLM providers.
+This document provides a complete deployment plan for deploying the GROWW Weekly Review Pulse Agent MCP server on Render.com. The deployment includes Google Drive/Docs and Gmail MCP servers with OAuth 2.0 authentication, and supports both OpenAI and GROQ LLM providers.
 
 ## Prerequisites
 
-Before deploying to Koyeb, ensure you have:
+Before deploying to Render, ensure you have:
 
-1. **Koyeb Account**: Create an account at [koyeb.com](https://koyeb.com)
+1. **Render Account**: Create an account at [render.com](https://render.com)
 2. **Google Cloud Project**: A Google Cloud project with OAuth 2.0 credentials
-3. **GitHub Repository**: Your project code pushed to GitHub (Koyeb integrates with GitHub)
+3. **GitHub Repository**: Your project code pushed to GitHub (Render integrates with GitHub)
 4. **Google OAuth Credentials**: Downloaded `credentials.json` from Google Cloud Console
 5. **GROQ API Key**: Get your API key from [console.groq.com](https://console.groq.com)
 
@@ -86,13 +86,13 @@ Edit `.env` with your actual values:
 
 ## Deployment Files
 
-The following files are included for Koyeb deployment:
+The following files are included for Render deployment:
 
-### 1. `koyeb.yml`
-Configuration file for Koyeb deployment with build and environment settings.
+### 1. `render.yaml`
+Configuration file for Render deployment with build and environment settings.
 
 ### 2. `Dockerfile`
-Docker container configuration for running the MCP server on Koyeb.
+Docker container configuration for running the MCP server on Render.
 
 ### 3. `requirements.txt`
 Python dependencies required for the MCP server (includes GROQ SDK).
@@ -103,7 +103,7 @@ Template for environment variables (do not commit actual `.env`).
 ### 5. `start_mcp_server.py`
 Startup script that initializes MCP servers and handles OAuth token refresh.
 
-## Koyeb Deployment Steps
+## Render Deployment Steps
 
 ### Step 1: Push Code to GitHub
 
@@ -111,22 +111,22 @@ Ensure your code is pushed to a GitHub repository:
 
 ```bash
 git add .
-git commit -m "Add Koyeb deployment configuration"
+git commit -m "Add Render deployment configuration"
 git push origin main
 ```
 
-### Step 2: Create New Service on Koyeb
+### Step 2: Create New Web Service on Render
 
-1. Log in to [koyeb.com](https://koyeb.com)
-2. Click "Create App"
-3. Select "Docker" as the deployment method
+1. Log in to [render.com](https://render.com)
+2. Click "New +"
+3. Select "Web Service"
 4. Connect your GitHub repository
-5. Koyeb will automatically detect the `koyeb.yml` configuration
+5. Render will automatically detect the `render.yaml` configuration
 
 ### Step 3: Configure Environment Variables
 
-1. In Koyeb, go to your service settings
-2. Navigate to the "Environment Variables" section
+1. In Render, go to your web service settings
+2. Navigate to the "Environment" tab
 3. Add the following environment variables:
 
 | Variable | Value | Description |
@@ -153,22 +153,22 @@ git push origin main
 1. Go back to Google Cloud Console
 2. Navigate to APIs & Services → Credentials
 3. Edit your OAuth 2.0 client ID
-4. Add your Koyeb service URL as an authorized redirect URI:
-   - Format: `https://your-service-name.koyeb.app/`
+4. Add your Render service URL as an authorized redirect URI:
+   - Format: `https://your-service-name.onrender.com/`
 5. Save the changes
 6. Download the updated `credentials.json`
-7. Update the `GOOGLE_CREDENTIALS_JSON` environment variable in Koyeb
+7. Update the `GOOGLE_CREDENTIALS_JSON` environment variable in Render
 
 ### Step 5: Deploy
 
-1. In Koyeb, click "Create App"
-2. Koyeb will build the Docker image and deploy your application
+1. In Render, click "Create Web Service"
+2. Render will build the Docker image and deploy your application
 3. Monitor the deployment logs for any errors
-4. Once deployed, you'll receive a Koyeb URL for your MCP server
+4. Once deployed, you'll receive a Render URL for your MCP server
 
 ### Step 6: Verify Deployment
 
-1. Check the Koyeb logs to ensure the MCP server started successfully
+1. Check the Render logs to ensure the MCP server started successfully
 2. Look for log messages indicating:
    - "Loaded Google OAuth credentials"
    - "Google Drive token configured"
@@ -179,16 +179,16 @@ git push origin main
 
 ### Update MCP Server URLs
 
-After deployment, update your local `mcp-config.json` to use the Koyeb URLs:
+After deployment, update your local `mcp-config.json` to use the Render URLs:
 
 ```json
 {
   "gdrive_mcp": {
-    "server": "https://your-service-name.koyeb.app",
+    "server": "https://your-service-name.onrender.com",
     "transport": "http"
   },
   "gmail_mcp": {
-    "server": "https://your-service-name.koyeb.app",
+    "server": "https://your-service-name.onrender.com",
     "transport": "http"
   }
 }
@@ -196,7 +196,7 @@ After deployment, update your local `mcp-config.json` to use the Koyeb URLs:
 
 ### Set Up Monitoring
 
-1. Enable Koyeb's built-in metrics and logging
+1. Enable Render's built-in metrics and logging
 2. Set up alerts for:
    - High error rates
    - Memory/CPU usage thresholds
@@ -206,9 +206,9 @@ After deployment, update your local `mcp-config.json` to use the Koyeb URLs:
 
 If you want to run the agent on a schedule:
 
-1. Use Koyeb's cron jobs or external scheduler (e.g., GitHub Actions)
+1. Use Render's cron jobs or external scheduler (e.g., GitHub Actions)
 2. Configure the scheduler to trigger the agent pipeline
-3. Ensure the agent can access the Koyeb-deployed MCP servers
+3. Ensure the agent can access the Render-deployed MCP servers
 
 ## LLM Provider Configuration
 
@@ -240,7 +240,7 @@ To use OpenAI:
 If you see "Token expired" errors:
 
 1. Run `generate_token.py` locally again
-2. Update the corresponding environment variable in Koyeb
+2. Update the corresponding environment variable in Render
 3. Redeploy
 
 ### Google API Quota Exceeded
@@ -251,22 +251,22 @@ If you hit Google API quotas:
 2. Request quota increase if needed
 3. Implement rate limiting in your application
 
-### Koyeb Build Failures
+### Render Build Failures
 
 If the build fails:
 
-1. Check the Koyeb build logs
+1. Check the Render build logs
 2. Ensure all dependencies in `requirements.txt` are correct
-3. Verify the Dockerfile is compatible with Koyeb's build environment
+3. Verify the Dockerfile is compatible with Render's build environment
 
 ### MCP Server Connection Issues
 
 If MCP servers can't connect:
 
 1. Verify environment variables are set correctly
-2. Check Koyeb logs for authentication errors
+2. Check Render logs for authentication errors
 3. Ensure Google OAuth credentials have the correct scopes
-4. Verify the Koyeb URL is added to Google OAuth redirect URIs
+4. Verify the Render URL is added to Google OAuth redirect URIs
 
 ### GROQ API Errors
 
@@ -279,17 +279,16 @@ If you encounter GROQ API errors:
 ## Security Considerations
 
 1. **Never commit credentials**: Ensure `.env` and token files are in `.gitignore`
-2. **Use Koyeb's secret management**: Store sensitive data in Koyeb environment variables, not in code
+2. **Use Render's secret management**: Store sensitive data in Render environment variables, not in code
 3. **Rotate tokens regularly**: OAuth tokens should be refreshed periodically
-4. **Monitor access**: Keep track of who has access to your Koyeb project and Google Cloud Console
+4. **Monitor access**: Keep track of who has access to your Render project and Google Cloud Console
 5. **Use HTTPS**: Ensure all MCP server communications use HTTPS
 
 ## Cost Estimation
 
-Koyeb pricing:
-- Free tier: Available with 512MB RAM and shared CPU
-- Nano tier: Starting at $5.60/month for production
-- Standard tiers: Available for higher performance
+Render pricing:
+- Free tier: Available for web services (with limitations)
+- Standard tier: Starting at $7/month for production
 
 Google Cloud pricing:
 - Google Docs API: Free tier available
@@ -308,7 +307,7 @@ OpenAI pricing:
 
 ### Regular Tasks
 
-1. **Monitor logs**: Check Koyeb logs for errors or warnings
+1. **Monitor logs**: Check Render logs for errors or warnings
 2. **Update dependencies**: Keep Python packages updated
 3. **Refresh tokens**: OAuth tokens may need periodic refresh
 4. **Review quotas**: Monitor Google API usage and quotas
@@ -320,13 +319,13 @@ To update the deployed application:
 
 1. Make changes to your code
 2. Commit and push to GitHub
-3. Koyeb will automatically redeploy on push (or trigger manual deploy)
+3. Render will automatically redeploy on push (or trigger manual deploy)
 
 ## Rollback
 
 If you need to rollback to a previous version:
 
-1. Go to Koyeb service settings
+1. Go to Render web service settings
 2. Navigate to "Deployments"
 3. Select the previous deployment
 4. Click "Redeploy" to rollback
@@ -334,7 +333,7 @@ If you need to rollback to a previous version:
 ## Support
 
 For issues related to:
-- **Koyeb**: Check [Koyeb documentation](https://koyeb.com/docs)
+- **Render**: Check [Render documentation](https://render.com/docs)
 - **Google APIs**: Check [Google Cloud documentation](https://cloud.google.com/docs)
 - **GROQ**: Check [GROQ documentation](https://console.groq.com/docs)
 - **This project**: Check the main README.md and implementation-plan.md
@@ -347,7 +346,7 @@ After successful deployment:
 2. Integrate with the agent orchestrator (Phase 5)
 3. Set up monitoring and alerting
 4. Configure scheduled runs
-5. Document the Koyeb URL for your team
+5. Document the Render URL for your team
 
 ---
 
