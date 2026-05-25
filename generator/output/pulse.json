@@ -1,0 +1,78 @@
+{
+  "run_at": "2026-05-26T01:41:57.146654",
+  "config": {
+    "max_words": 250,
+    "max_retries": 2,
+    "phase2_input": "A:\\NEXTLEAP\\MCP\\analyzer\\output\\themes.json"
+  },
+  "phase2_metadata": {
+    "total_input_reviews": 9856,
+    "sampled_reviews": 500,
+    "batches_processed": 10,
+    "batch_size": 50,
+    "total_themes_identified": 23,
+    "final_themes_count": 5,
+    "estimated_tokens_used": 33480
+  },
+  "generation": {
+    "metadata": {
+      "input_themes_count": 5,
+      "themes_used": 3,
+      "word_count": 139,
+      "max_words": 250,
+      "generation_attempts": 1
+    },
+    "pulse_data": {
+      "themes": [
+        {
+          "theme_name": "Onboarding and KYC Issues",
+          "summary": "Users report difficulties with onboarding and KYC processes (69 reviews)",
+          "quote": "KYC is extremely frustrating. I uploaded clear, high-resolution photos of my PAN and Aadhaar but the system keeps saying documents are illegible."
+        },
+        {
+          "theme_name": "Onboarding and Verification Issues",
+          "summary": "Users experience issues with the onboarding UI and verification processes (67 reviews)",
+          "quote": "The onboarding UI is a bit confusing."
+        },
+        {
+          "theme_name": "Payment and Withdrawal Issues",
+          "summary": "Users face problems with payments and withdrawals, including delayed payouts and failed transactions (58 reviews)",
+          "quote": "Unable to withdraw my money from liquid funds."
+        }
+      ],
+      "action_ideas": [
+        "Simplify the onboarding process and provide clear instructions for KYC verification",
+        "Improve the user interface for onboarding and verification to reduce confusion",
+        "Enhance the payment and withdrawal systems to prevent delays and failed transactions"
+      ]
+    },
+    "formats": {
+      "markdown": "# Weekly Review Pulse\n\n## Top Themes\n- **Onboarding and KYC Issues**: Users report difficulties with onboarding and KYC processes (69 reviews)\n- **Onboarding and Verification Issues**: Users experience issues with the onboarding UI and verification processes (67 reviews)\n- **Payment and Withdrawal Issues**: Users face problems with payments and withdrawals, including delayed payouts and failed transactions (58 reviews)\n\n## User Voices\n- KYC is extremely frustrating. I uploaded clear, high-resolution photos of my PAN and Aadhaar but the system keeps saying documents are illegible.\n- The onboarding UI is a bit confusing.\n- Unable to withdraw my money from liquid funds.\n\n## Action Ideas\n- Simplify the onboarding process and provide clear instructions for KYC verification\n- Improve the user interface for onboarding and verification to reduce confusion\n- Enhance the payment and withdrawal systems to prevent delays and failed transactions",
+      "plain_text": "WEEKLY REVIEW PULSE\n========================================\n\nTOP THEMES\n- Onboarding and KYC Issues: Users report difficulties with onboarding and KYC processes (69 reviews)\n- Onboarding and Verification Issues: Users experience issues with the onboarding UI and verification processes (67 reviews)\n- Payment and Withdrawal Issues: Users face problems with payments and withdrawals, including delayed payouts and failed transactions (58 reviews)\n\nUSER VOICES\n- KYC is extremely frustrating. I uploaded clear, high-resolution photos of my PAN and Aadhaar but the system keeps saying documents are illegible.\n- The onboarding UI is a bit confusing.\n- Unable to withdraw my money from liquid funds.\n\nACTION IDEAS\n- Simplify the onboarding process and provide clear instructions for KYC verification\n- Improve the user interface for onboarding and verification to reduce confusion\n- Enhance the payment and withdrawal systems to prevent delays and failed transactions",
+      "json": {
+        "themes": [
+          {
+            "theme_name": "Onboarding and KYC Issues",
+            "summary": "Users report difficulties with onboarding and KYC processes (69 reviews)",
+            "quote": "KYC is extremely frustrating. I uploaded clear, high-resolution photos of my PAN and Aadhaar but the system keeps saying documents are illegible."
+          },
+          {
+            "theme_name": "Onboarding and Verification Issues",
+            "summary": "Users experience issues with the onboarding UI and verification processes (67 reviews)",
+            "quote": "The onboarding UI is a bit confusing."
+          },
+          {
+            "theme_name": "Payment and Withdrawal Issues",
+            "summary": "Users face problems with payments and withdrawals, including delayed payouts and failed transactions (58 reviews)",
+            "quote": "Unable to withdraw my money from liquid funds."
+          }
+        ],
+        "action_ideas": [
+          "Simplify the onboarding process and provide clear instructions for KYC verification",
+          "Improve the user interface for onboarding and verification to reduce confusion",
+          "Enhance the payment and withdrawal systems to prevent delays and failed transactions"
+        ]
+      }
+    }
+  }
+}

@@ -26,7 +26,7 @@ logger = logging.getLogger("phase1_runner")
 
 # ── paths ──────────────────────────────────────────────────────────────────
 ROOT          = Path(__file__).parent
-PLAYSTORE_CSV = ROOT / "ingestion" / "sample_data" / "playstore_sample.csv"
+PLAYSTORE_CSV = ROOT / "ingestion" / "sample_data" / "playstore_10k_sample.csv"
 OUTPUT_DIR    = ROOT / "ingestion" / "output"
 OUTPUT_FILE   = OUTPUT_DIR / "reviews.json"
 

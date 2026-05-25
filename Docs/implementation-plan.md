@@ -57,7 +57,15 @@ The constraint of **maximum 5 themes** is enforced at two levels: in the prompt 
 
 ### What We Are Building
 
-**Prompt design for clustering:** The prompt instructs the LLM to read all review texts, identify the most common complaint or feedback categories, and return a JSON structure with: theme name, list of review IDs in the theme, and 2–3 representative verbatim quotes per theme. The prompt explicitly states the 5-theme maximum.
+**LLM Provider:** Groq Llama-3.3-70b-versatile is used as the LLM provider for this phase. Rate limits: 30 requests/minute, 1K requests/day, 12K tokens/minute, 100K tokens/day.
+
+**Dataset sampling:** To stay within Groq's token limits, we sample 500 reviews from the full dataset (stratified by rating to maintain the original distribution: ~20% 1-star, ~15% 2-star, ~15% 3-star, ~20% 4-star, ~28% 5-star).
+
+**Batching strategy:** Reviews are processed in batches of 50 per LLM call (~5K tokens per batch). This results in 10 batches total for 500 reviews. Each batch is processed sequentially to stay within the 30 requests/minute and 1K requests/day limits. Total token usage: ~50K tokens (well within the 100K daily limit).
+
+**Token budget management:** The analyzer logs token consumption per batch and halts if the cumulative token count approaches the 100K daily limit. Batches are designed to fit within the 12K tokens/minute limit with headroom.
+
+**Prompt design for clustering:** The prompt instructs the LLM to read all review texts in the current batch, identify the most common complaint or feedback categories, and return a JSON structure with: theme name, list of review IDs in the theme, and 2–3 representative verbatim quotes per theme. The prompt explicitly states the 5-theme maximum.
 
 **Structured output:** We use the LLM's JSON-mode or structured output capability to get a machine-parseable response. This avoids fragile text parsing and makes the post-processing deterministic.
 
@@ -69,7 +77,7 @@ The constraint of **maximum 5 themes** is enforced at two levels: in the prompt 
 
 This two-pass approach is chosen because regex is fast and reliable for structured patterns, but misses natural-language PII that only semantic understanding can detect.
 
-**Token budget management:** We log the token count consumed per analyzer run. If review volumes grow, chunked batching is supported — reviews are split into batches that fit within the LLM's context window, and themes are merged across batches.
+**Token budget management:** We log the token count consumed per analyzer run and per batch. The system is designed to operate within Groq's 100K tokens/day limit by processing exactly 500 reviews in 10 batches of 50 reviews each (~50K total tokens). If review volumes grow beyond 500, the sampling strategy can be adjusted or the batch size reduced to stay within token limits.
 
 ### Key Decisions Made at This Phase
 - Dual enforcement of ≤ 5 themes (prompt + code) — see D-003

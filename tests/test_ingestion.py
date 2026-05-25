@@ -336,3 +336,104 @@ def test_load_playstore_reviews_missing_file():
 
     with pytest.raises(FileNotFoundError):
         load_playstore_reviews(playstore_path="nonexistent_playstore.csv")
+
+
+# ---------------------------------------------------------------------------
+# P1-T10 — Emoji, Word Count, and Language Normalization Filter
+# ---------------------------------------------------------------------------
+
+def test_remove_emojis_utility():
+    """Verify that emojis and pictographs are stripped, but standard text/numbers are untouched."""
+    from ingestion.filters import remove_emojis
+
+    assert remove_emojis("Hello 🌟 World! 123 👍🏽") == "Hello World! 123"
+    assert remove_emojis("No emojis here") == "No emojis here"
+    assert remove_emojis("🇮🇳 Great App! 🔥") == "Great App!"
+    assert remove_emojis("") == ""
+
+
+def test_is_english_utility():
+    """Verify stopword-based English detection works correctly."""
+    from ingestion.filters import is_english
+
+    assert is_english("This is an excellent app for mutual funds investing.") is True
+    assert is_english("muy buena aplicacion para inversiones") is False  # Spanish
+    assert is_english("ye app bahut hi badhiya hai") is False  # Hinglish
+    assert is_english("अच्छा ऐप है") is False  # Hindi in Devanagari script
+
+
+def test_normalize_and_filter_reviews_pipeline():
+    """Verify emoji stripping, 6-word limit, and English language check in the helper pipeline."""
+    from ingestion.filters import normalize_and_filter_reviews
+    from ingestion.schema import Review
+
+    reviews = [
+        # Valid: 10 words, English, has emoji (will be stripped)
+        Review(
+            id="r1",
+            rating=5,
+            title="Great! 👍",
+            text="Setting up my first SIP was very fast and easy.",
+            date=datetime(2025, 1, 10),
+            source="playstore",
+        ),
+        # Invalid: < 6 words (only 5 words)
+        Review(
+            id="r2",
+            rating=4,
+            title="Okay",
+            text="App is good but slow.",
+            date=datetime(2025, 1, 10),
+            source="playstore",
+        ),
+        # Invalid: non-English (Spanish)
+        Review(
+            id="r3",
+            rating=3,
+            title="Hola",
+            text="esta aplicacion no funciona bien en mi telefono",
+            date=datetime(2025, 1, 10),
+            source="playstore",
+        ),
+    ]
+
+    filtered = normalize_and_filter_reviews(reviews, min_word_count=6)
+
+    assert len(filtered) == 1
+    assert filtered[0].id == "r1"
+    # Verify emoji was removed from title
+    assert filtered[0].title == "Great!"
+
+
+def test_apply_all_filters_emoji_deduplication():
+    """Verify that emoji-only differences are normalized out before deduplication."""
+    from ingestion.filters import apply_all_filters
+    from ingestion.schema import Review
+
+    reviews = [
+        # Exactly identical text except one has an emoji
+        Review(
+            id="r1",
+            rating=5,
+            title="Excellent",
+            text="The fund comparison tool is really useful for my portfolio.",
+            date=datetime(2025, 1, 10),
+            source="playstore",
+        ),
+        Review(
+            id="r2",
+            rating=5,
+            title="Excellent 👍",
+            text="The fund comparison tool is really useful for my portfolio. 🔥",
+            date=datetime(2025, 1, 10),
+            source="playstore",
+        ),
+    ]
+
+    # Reference date to keep them within date window
+    ref_date = datetime(2025, 1, 15)
+    filtered = apply_all_filters(reviews, weeks=2, reference_date=ref_date)
+
+    # Only 1 unique review should survive since the emoji-stripped text matches
+    assert len(filtered) == 1
+

@@ -1,0 +1,23 @@
+{
+  "run_at": "2026-05-26T02:34:20.067086",
+  "config": {
+    "google_doc_id": "1iTmQLYj5GNyJxMW-fDBwOu444W4I41BSEYj_Q3S_Pk4",
+    "gmail_recipient": "ashabharathy@gmail.com",
+    "phase3_input": "A:\\NEXTLEAP\\MCP\\generator\\output\\pulse.json"
+  },
+  "delivery": {
+    "google_docs": {
+      "success": true,
+      "doc_id": "1iTmQLYj5GNyJxMW-fDBwOu444W4I41BSEYj_Q3S_Pk4",
+      "doc_url": "https://docs.google.com/document/d/1iTmQLYj5GNyJxMW-fDBwOu444W4I41BSEYj_Q3S_Pk4/edit",
+      "message": "Document updated successfully"
+    },
+    "gmail": {
+      "success": true,
+      "to": "ashabharathy@gmail.com",
+      "subject": "Weekly Review Pulse - 2026-05-26",
+      "draft_id": "r4184072547135856913",
+      "message": "Email draft created successfully"
+    }
+  }
+}

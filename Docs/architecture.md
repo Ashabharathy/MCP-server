@@ -90,9 +90,11 @@ The system is designed around three principles:
 **Inputs:** List of normalized review records
 
 **Processing:**
-- Batch reviews into LLM context window (chunked if total tokens exceed limit)
+- Sample 1,000 reviews from the full dataset (stratified by rating to maintain distribution)
+- Batch reviews into groups of 100 per LLM call (~10K tokens per batch) to stay within Groq's 100K tokens/day limit
+- Process batches sequentially (10 batches total for 1K reviews) to stay within 30 requests/min and 1K requests/day limits
 - Prompt the LLM to perform semantic clustering — returning a structured JSON response with theme name, review count, and top representative quotes per theme
-- Post-process: enforce ≤ 5 themes at code level (merge smallest themes if LLM returns more)
+- Merge themes across batches and enforce ≤ 5 themes at code level (merge smallest themes if LLM returns more)
 - Run PII stripping pass on all extracted quotes (regex for structured PII + LLM pass for contextual PII)
 - Sort themes by review volume (descending)
 
@@ -287,9 +289,9 @@ Play Store CSV ─┘
 | Layer | Technology | Notes |
 |---|---|---|
 | Agent Orchestration | Python (agent loop) | LLM tool-calling orchestrator |
-| LLM Provider | Configurable (GPT-4o / Claude 3.5 Sonnet) | Provider-agnostic via config (see D-006) |
-| Review Ingestion | Python | CSV/JSON parsing, normalization |
-| Theme Analysis | LLM (structured JSON output) | Semantic clustering via prompt |
+| LLM Provider | Groq Llama-3.3-70b-versatile (Phase 2) | Rate limits: 30 req/min, 1K req/day, 12K tokens/min, 100K tokens/day |
+| Review Ingestion | Python | CSV/JSON parsing, normalization, sampling to 500 reviews |
+| Theme Analysis | LLM (structured JSON output) | Batched processing (50 reviews/batch) to stay within token limits |
 | Pulse Generation | LLM (templated prompt) | Word-count enforced via retry loop |
 | PII Stripping | Regex + LLM pass | Two-pass defense in depth |
 | Google Docs Integration | Google Docs MCP Server | No direct REST API in agent code |
